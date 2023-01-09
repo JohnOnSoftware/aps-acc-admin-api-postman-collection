@@ -1,0 +1,2101 @@
+{
+	"info": {
+		"_postman_id": "467bf38c-d10a-4a48-a263-5c4f5bcacfef",
+		"name": "ACC|BIM360 - Admin APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ACC 2 Legged Token",
+			"item": [
+				{
+					"name": "Projects",
+					"item": [
+						{
+							"name": "GET projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"var project_name = postman.getEnvironmentVariable(\"project_name\");",
+											"",
+											"console.log(\"Looking for project: \" + project_name)",
+											"for ( var index in responseBody.results) {",
+											"    if(responseBody.results[index].name == project_name){",
+											"        console.log(\"Find the project with id: \"+responseBody.results[index].id)",
+											"        postman.setEnvironmentVariable(\"project_id\", responseBody.results[index].id);",
+											"    }",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Region",
+										"value": "EMEA",
+										"type": "default",
+										"disabled": true
+									},
+									{
+										"key": "User-Id",
+										"value": "{{user_id}}",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/accounts/:account_id/projects?filterTextMatch=contains&sort=name&limit=500&offset=0&filter[name]=Zhong&fields=addressLine1,name,type,status,products",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":account_id",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "filter[classification]",
+											"value": "sample,production",
+											"disabled": true
+										},
+										{
+											"key": "filter[type]",
+											"value": "Commercial",
+											"disabled": true
+										},
+										{
+											"key": "filterTextMatch",
+											"value": "contains"
+										},
+										{
+											"key": "sort",
+											"value": "name"
+										},
+										{
+											"key": "limit",
+											"value": "500"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "filter[name]",
+											"value": "Zhong"
+										},
+										{
+											"key": "fields",
+											"value": "addressLine1,name,type,status,products"
+										},
+										{
+											"key": "filter[status]",
+											"value": "active,pending",
+											"disabled": true
+										},
+										{
+											"key": "filter[products]",
+											"value": "designCollaboration,insight,assets",
+											"disabled": true
+										},
+										{
+											"key": "filter[updatedAt]",
+											"value": "2019-06-01T00:00:00.000Z..",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "account_id",
+											"value": "{{account_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Region",
+										"value": "US",
+										"type": "text"
+									},
+									{
+										"key": "fields",
+										"value": "name",
+										"type": "default",
+										"disabled": true
+									},
+									{
+										"key": "User-Id",
+										"value": "{{user_id}}",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/projects/:project_id",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"projects",
+										":project_id"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"// postman.setEnvironmentVariable(\"project_id\", responseBody.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ACC Sample Project Zhong 2 By API with template 12\",\n    \"startDate\": \"2010-01-01\",\n    \"endDate\": \"2015-12-31\",\n    \"type\": \"Hospital\",\n    \"projectValue\": {\n        \"value\": 1650000,\n        \"currency\": \"USD\"\n    },\n    \"jobNumber\": \"HP-0002\",\n    \"addressLine1\": \"123 Main Street\",\n    \"addressLine2\": \"Suite 2\",\n    \"city\": \"San Francisco\",\n    \"stateOrProvince\": \"California\",\n    \"postalCode\": \"94001\",\n    \"country\": \"United States\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"constructionType\": \"New Construction\",\n    \"deliveryMethod\": \"Unit Price\",\n    \"currentPhase\": \"Design\",\n    \"template\": {\n        \"projectId\": \"65975d06-9493-4053-b828-703f2233a78e\"\n    }\n}"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/accounts/:account_id/projects",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":account_id",
+										"projects"
+									],
+									"variable": [
+										{
+											"key": "account_id",
+											"value": "{{account_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update the project - Not Working",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"ACC Sample Project Zhong By API\",\n  \"startDate\": \"2010-01-01\",\n  \"endDate\": \"2015-12-31\",\n  \"type\": \"Hospital\",\n  \"projectValue\": {\n    \"value\": 1650000,\n    \"currency\": \"USD\"\n  },\n  \"jobNumber\": \"HP-0002\",\n  \"addressLine1\": \"123 Main Street\",\n  \"addressLine2\": \"Suite 2\",\n  \"city\": \"San Francisco\",\n  \"stateOrProvince\": \"California\",\n  \"postalCode\": \"94001\",\n  \"country\": \"United States\",\n  \"timezone\": \"America/Los_Angeles\",\n  \"constructionType\": \"New Construction\",\n  \"deliveryMethod\": \"Unit Price\",\n  \"currentPhase\": \"Design\",\n  \"products\": [\n    {\n      \"key\": \"docs\"\n    },\n    {\n      \"key\": \"build\"\n    }\n  ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/projects/:projectId",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"projects",
+										":projectId"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Project Users",
+					"item": [
+						{
+							"name": "GET project users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"user_id\", responseBody.results[0].id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users"
+									],
+									"query": [
+										{
+											"key": "filter[email]",
+											"value": "wuzhong@domiler.com",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users/:user_id",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users",
+										":user_id"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "0",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										},
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n            \"email\": \"wuzhong@domiler.com\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"member\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                }\n            ]\n        }\n"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import project users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"job_id\", responseBody.jobId);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"description": "User Zhong",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"users\": [\n        {\n            \"email\": \"hr@domiler.com\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                }\n            ]\n        },\n        {\n            \"email\": \"liuyu@domiler.com\",\n            \"companyId\": \"{{company_id}}\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\",\n                \"3725d7da-1020-45b6-bbf4-8664ae0e31ab\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users:import",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users:import"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"description": "Id of Zhong Wu",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n            \"companyId\": \"{{company_id}}\",\n            \"companyName\": \"change my name\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"financials\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"capitalPlanning\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"buildingConnected\",\n                    \"access\": \"none\"\n                }\n            ]\n        }"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users/:user_id",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users",
+										":user_id"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										},
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"description": "Id of Zhong Wu",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users/:user_id",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users",
+										":user_id"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										},
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ACC 3 Legged Token",
+			"item": [
+				{
+					"name": "Projects",
+					"item": [
+						{
+							"name": "GET projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"var project_name = postman.getEnvironmentVariable(\"project_name\");",
+											"",
+											"console.log(\"Looking for project: \" + project_name)",
+											"for ( var index in responseBody.results) {",
+											"    if(responseBody.results[index].name == project_name){",
+											"        console.log(\"Find the project with id: \"+responseBody.results[index].id)",
+											"        postman.setEnvironmentVariable(\"project_id\", responseBody.results[index].id);",
+											"    }",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Region",
+										"value": "EMEA",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/accounts/:account_id/projects?filterTextMatch=contains&sort=name&limit=500&offset=0&filter[status]=archived",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"accounts",
+										":account_id",
+										"projects"
+									],
+									"query": [
+										{
+											"key": "filter[classification]",
+											"value": "sample,production",
+											"disabled": true
+										},
+										{
+											"key": "filter[type]",
+											"value": "Commercial",
+											"disabled": true
+										},
+										{
+											"key": "filterTextMatch",
+											"value": "contains"
+										},
+										{
+											"key": "sort",
+											"value": "name"
+										},
+										{
+											"key": "limit",
+											"value": "500"
+										},
+										{
+											"key": "offset",
+											"value": "0"
+										},
+										{
+											"key": "filter[name]",
+											"value": "ACC Sample Project Zhong 2 By API with template 4",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "addressLine1,name,type,status,products",
+											"disabled": true
+										},
+										{
+											"key": "filter[status]",
+											"value": "archived"
+										},
+										{
+											"key": "filter[products]",
+											"value": "designCollaboration,insight,assets",
+											"disabled": true
+										},
+										{
+											"key": "filter[updatedAt]",
+											"value": "2019-06-01T00:00:00.000Z..",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "account_id",
+											"value": "{{account_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Region",
+										"value": "US",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "fields",
+										"value": "name",
+										"type": "default",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/projects/:project_id",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"projects",
+										":project_id"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"// postman.setEnvironmentVariable(\"project_id\", responseBody.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ACC Sample Project Zhong<test 2 By API with template 8\",\n    \"startDate\": \"2010-01-01\",\n    \"endDate\": \"2015-12-31\",\n    \"type\": \"Hospital\",\n    \"projectValue\": {\n        \"value\": 1650000,\n        \"currency\": \"USD\"\n    },\n    \"jobNumber\": \"HP-0002\",\n    \"addressLine1\": \"123 Main Street\",\n    \"addressLine2\": \"Suite 2\",\n    \"city\": \"San Francisco\",\n    \"stateOrProvince\": \"California\",\n    \"postalCode\": \"94001\",\n    \"country\": \"United States\",\n    \"timezone\": \"America/Los_Angeles\",\n    \"constructionType\": \"New Construction\",\n    \"deliveryMethod\": \"Unit Price\",\n    \"currentPhase\": \"Design\",\n    \"template\": {\n        \"projectId\": \"65975d06-9493-4053-b828-703f2233a78e\"\n    }\n}"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/accounts/:account_id/projects",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"accounts",
+										":account_id",
+										"projects"
+									],
+									"variable": [
+										{
+											"key": "account_id",
+											"value": "{{account_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update the project - Not Working",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n//   \"name\": \"ACC Sample Project Zhong By API\",\n//   \"startDate\": \"2010-01-01\",\n//   \"endDate\": \"2015-12-31\",\n//   \"type\": \"Hospital\",\n//   \"projectValue\": {\n//     \"value\": 1650000,\n//     \"currency\": \"USD\"\n//   },\n  \"jobNumber\": \"HP-0002\",\n  \"addressLine1\": \"123 Main Street\"\n//   \"addressLine2\": \"Suite 2\",\n//   \"city\": \"San Francisco\",\n//   \"stateOrProvince\": \"California\",\n//   \"postalCode\": \"94001\",\n//   \"country\": \"United States\",\n//   \"timezone\": \"America/Los_Angeles\",\n//   \"constructionType\": \"New Construction\",\n//   \"deliveryMethod\": \"Unit Price\",\n//   \"currentPhase\": \"Design\",\n//   \"products\": [\n//     {\n//       \"key\": \"docs\"\n//     },\n//     {\n//       \"key\": \"build\"\n//     }\n//   ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}admin/v1/projects/:projectId",
+									"host": [
+										"{{base_domain_acc}}admin"
+									],
+									"path": [
+										"v1",
+										"projects",
+										":projectId"
+									],
+									"variable": [
+										{
+											"key": "projectId",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Project Users",
+					"item": [
+						{
+							"name": "GET project users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"postman.setEnvironmentVariable(\"user_id\", responseBody.results[0].id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users"
+									],
+									"query": [
+										{
+											"key": "filter[email]",
+											"value": "wuzhong@domiler.com",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users/:user_id",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users",
+										":user_id"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "0",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										},
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n            \"email\": \"hr@domiler.com\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"administrator\"\n                }\n            ]\n        }\n"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Import project users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											"var responseBody = JSON.parse(responseBody);",
+											"",
+											"",
+											"postman.setEnvironmentVariable(\"job_id\", responseBody.jobId);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"description": "User Zhong",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"users\": [\n        {\n            \"email\": \"zhong.wu@autodesk.com\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                }\n            ]\n        },\n        {\n            \"email\": \"liuyu@domiler.com\",\n            \"companyId\": \"{{company_id}}\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\",\n                \"3725d7da-1020-45b6-bbf4-8664ae0e31ab\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"administrator\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                }\n            ]\n        }\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users:import",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users:import"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"disabled": true
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"description": "Id of Zhong Wu",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "        {\n            \"companyId\": \"{{company_id}}\",\n            \"companyName\": \"change my name\",\n            \"roleIds\": [\n                \"{{industry_role_id}}\"\n            ],\n            \"products\": [\n                {\n                    \"key\": \"projectAdministration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"insight\",\n                    \"access\": \"member\"\n                },\n                {\n                    \"key\": \"docs\",\n                    \"access\": \"member\"\n                },\n                {\n                    \"key\": \"takeoff\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"designCollaboration\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"modelCoordination\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"build\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"cost\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"financials\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"capitalPlanning\",\n                    \"access\": \"none\"\n                },\n                {\n                    \"key\": \"buildingConnected\",\n                    \"access\": \"none\"\n                }\n            ]\n        }"
+								},
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users/:user_id",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users",
+										":user_id"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										},
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a project user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"disabled": true
+									},
+									{
+										"key": "User-Id",
+										"value": "{{admin_id}}",
+										"description": "Id of Zhong Wu",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_domain_acc}}/admin/v1/projects/:project_id/users/:user_id",
+									"host": [
+										"{{base_domain_acc}}"
+									],
+									"path": [
+										"admin",
+										"v1",
+										"projects",
+										":project_id",
+										"users",
+										":user_id"
+									],
+									"variable": [
+										{
+											"key": "project_id",
+											"value": "{{project_id}}"
+										},
+										{
+											"key": "user_id",
+											"value": "{{user_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "About Me",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"var responseBody = JSON.parse(responseBody);",
+									"",
+									"var userId = responseBody.userId;",
+									"postman.setEnvironmentVariable(\"userId\", userId);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_domain}}/userprofile/v1/users/@me",
+							"host": [
+								"{{base_domain}}"
+							],
+							"path": [
+								"userprofile",
+								"v1",
+								"users",
+								"@me"
+							]
+						},
+						"description": "Get the specified industry role from this project, and set to \"industry_role\"."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prep Step 0: Reset the environment variables",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.clear();",
+							"",
+							"// Please change the following variables according to your account setting",
+							"pm.environment.set(\"client_id\",     \"your Forge client id\");",
+							"pm.environment.set(\"client_secret\", \"your Forge client secret\");",
+							"",
+							"",
+							"// Change to the specified project name",
+							"pm.environment.set(\"hub_name\",     \"your hub name\");",
+							"pm.environment.set(\"project_name\", \"your project name\");",
+							"",
+							"",
+							"pm.environment.set(\"admin_email\", \"admin user email\");",
+							"pm.environment.set(\"industry_role_name\", \"industry role name\");",
+							"",
+							"pm.environment.set(\"base_domain\", \"https://developer.api.autodesk.com/\");",
+							"pm.environment.set(\"base_domain_acc\", \"https://developer.api.autodesk.com/construction/\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "VIEW",
+				"header": [],
+				"url": {
+					"raw": "{{base_domain}}/health",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Reset the following environment variables:\n1. Forge Client Key, please change to your Forge Client Id and Secret.\n2. Project name, please change to the correct project name which you want to work with.\n3. Base domain, should be https://developer.api.autodesk.com/ by default.\n4. Segment index, will be used to create multiple budget segments, should be 1 by default."
+			},
+			"response": []
+		},
+		{
+			"name": "Prep Step 1: Get 2 legged access token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"access_token\", data.access_token);",
+							"postman.setEnvironmentVariable(\"expires_in\", data.expires_in);",
+							"postman.setEnvironmentVariable(\"token_type\", data.token_type);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "{{client_id}}",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "{{client_secret}}",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "account:read account:write data:read",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_domain}}/authentication/v1/authenticate",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"authentication",
+						"v1",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prep Step 2: Get ACC or BIM 360 hub",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// setup the environment variable \"hub_id\" and \"account_id\" with the 1st BIM360 hub",
+							"var responseBody = JSON.parse(responseBody);",
+							"var bim_hub = responseBody.data.find( hub =>  hub.id.indexOf(\"b.\") !== -1);",
+							"if(bim_hub !== null ){",
+							"    ",
+							"    pm.environment.set(\"hub_id\",     bim_hub.id);",
+							"    pm.environment.set(\"account_id\", bim_hub.id.split('b.').join(''));",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "default"
+					},
+					{
+						"key": "Region",
+						"value": "EMEA",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_domain}}/project/v1/hubs?filter[name]={{hub_name}}",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"project",
+						"v1",
+						"hubs"
+					],
+					"query": [
+						{
+							"key": "filter[name]",
+							"value": "{{hub_name}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prep Step 3: Find the specified project",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"const project_name =  pm.environment.get(\"project_name\");",
+							"pm.test(\"find matches project by name: \" + project_name, function () {",
+							"    const body = JSON.parse(responseBody);",
+							"    const found = body.data.find(d => d.attributes.name == project_name)",
+							"",
+							"    pm.expect(found).to.not.be.undefined;",
+							"    ",
+							"    postman.setEnvironmentVariable(\"project_id\", found.id);",
+							"    postman.setEnvironmentVariable(\"project_id_without_b\", found.id.split(\"b.\").join(\"\"));    ",
+							"});",
+							"",
+							"",
+							"// // find the specified project and setup the environment variable \"project_id\"",
+							"// var project_name =  pm.environment.get(\"project_name\");",
+							"// var responseBody = JSON.parse(responseBody);",
+							"// var project = responseBody.data.find(d => d.attributes.name == project_name)",
+							"// if( project ){",
+							"//     postman.setEnvironmentVariable(\"project_id\", project.id);",
+							"//     postman.setEnvironmentVariable(\"project_id_without_b\", project.id.split('b.').join(''));",
+							"// }"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{base_domain}}/project/v1/hubs/{{hub_id}}/projects?page[limit]=200",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"project",
+						"v1",
+						"hubs",
+						"{{hub_id}}",
+						"projects"
+					],
+					"query": [
+						{
+							"key": "page[limit]",
+							"value": "200"
+						},
+						{
+							"key": "filter[name]",
+							"value": "{{project_name}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prep Step 4: Find Acount Admin by email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"admin_id\", data[0].id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{base_domain}}hq/v1/accounts/{{account_id}}/users/search?email={{admin_email}}",
+					"host": [
+						"{{base_domain}}hq"
+					],
+					"path": [
+						"v1",
+						"accounts",
+						"{{account_id}}",
+						"users",
+						"search"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{admin_email}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prep Step 5: Get project company list and setup the company Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"company_id\", data[0].id);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_domain}}/hq/v1/accounts/:account_id/projects/:project_id/companies",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"hq",
+						"v1",
+						"accounts",
+						":account_id",
+						"projects",
+						":project_id",
+						"companies"
+					],
+					"variable": [
+						{
+							"key": "account_id",
+							"value": "{{account_id}}"
+						},
+						{
+							"key": "project_id",
+							"value": "{{project_id}}"
+						}
+					]
+				},
+				"description": "Get the 1st company of this project, set the \"company_id\""
+			},
+			"response": []
+		},
+		{
+			"name": "Prep Step 6: Find and setup industry role",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							"",
+							"var responseBody = JSON.parse(responseBody);",
+							"",
+							"",
+							"for ( var index in responseBody) {",
+							"    if(responseBody[index].name == \"BIM Manager\"){",
+							"        postman.setEnvironmentVariable(\"industry_role_id\", responseBody[index].id);",
+							"        postman.setEnvironmentVariable(\"industry_role_name\", responseBody[index].name);",
+							"",
+							"    }",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_domain}}/hq/v2/accounts/{{account_id}}/projects/{{project_id}}/industry_roles",
+					"host": [
+						"{{base_domain}}"
+					],
+					"path": [
+						"hq",
+						"v2",
+						"accounts",
+						"{{account_id}}",
+						"projects",
+						"{{project_id}}",
+						"industry_roles"
+					],
+					"query": [
+						{
+							"key": "filter[Bclassification]",
+							"value": "production%2Csample",
+							"disabled": true
+						},
+						{
+							"key": "filter[type]",
+							"value": "-Template+Project",
+							"disabled": true
+						},
+						{
+							"key": "filterTextMatch",
+							"value": "contains",
+							"disabled": true
+						},
+						{
+							"key": "sort",
+							"value": "name",
+							"disabled": true
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Get the specified industry role from this project, and set to \"industry_role\"."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "scope",
+				"value": "data:read data:write data:search account:read account:write",
+				"type": "string"
+			},
+			{
+				"key": "tokenType",
+				"value": "Bearer",
+				"type": "string"
+			},
+			{
+				"key": "accessToken",
+				"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlU3c0dGRldUTzlBekNhSzBqZURRM2dQZXBURVdWN2VhIn0.eyJzY29wZSI6WyJidWNrZXQ6Y3JlYXRlIiwiYnVja2V0OnJlYWQiLCJkYXRhOnJlYWQiLCJkYXRhOmNyZWF0ZSIsImRhdGE6d3JpdGUiLCJkYXRhOnNlYXJjaCJdLCJjbGllbnRfaWQiOiJrSnRiTFlLZ0dSOU5rOHgwVnFscmMyWTAzSUg1dTlsUCIsImF1ZCI6Imh0dHBzOi8vYXV0b2Rlc2suY29tL2F1ZC9hand0ZXhwNjAiLCJqdGkiOiJLaHV6NUJqZjlsSlp4NG5vT29neDBsTFZpOU5pbFN3RjlqdjBwWU5mTDJuZzdRZENNdFhVODFXODBhWkNrZU1MIiwidXNlcmlkIjoiNFY0V0tRSkdHUTdOIiwiZXhwIjoxNjY3MTkyMzYxfQ.L8bhpMi7J1QgLFMP6B6rVM2XnGFmJBHBNUAhSFUymc_6XX1r6BiaQ66PWw_6jG2HIJqUqr2msMZ6TdzFCqVlm7J-7uBuJlgF7h4Y9BsbMAvk_C6-DmVgjjEW562YS2Z965uHnE2Fito0ZXUNKFxP44LMEFqvvELzg8OzqZ0mjDIdepoAl5uIXHwu0ePW0Uqg_XHNgrdrkL_IgThRi9rviSnTQAZWVf5eoK8h1Spg7dWMzhYJAG0KkWak4QCbxVFDy3fbpzuhnMrHvXgPNfdomPFeD4qDTZpY5hmP-sKUNpyYttihv55HxIh_L-D1yohc34RLvycTta4YeV03Mw2hVw",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "https://developer.api.autodesk.com/authentication/v1/gettoken",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://www.getpostman.com/oauth2/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "3LO",
+				"type": "string"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{client_secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client_id}}",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "https://developer.api.autodesk.com/authentication/v1/authorize",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "body",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
